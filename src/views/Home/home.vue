@@ -9,7 +9,7 @@
     </div>
     <div class="newsContent">
       <router-link
-        v-for="(item,index) in page.data"
+        v-for="(item,index) in getList"
         :key="index"
         :to='{name:"list",params:{"id":item.tag_id}}'
         class="newsDetaile"
@@ -35,49 +35,73 @@
 <script>
 import http from "./http.js";
 import TabBar from "../../components/bottom.vue";
-import { mapMutations, mapActions } from "vuex";
+import {mapState, mapActions, mapGetters } from "vuex";
+
 export default {
   name: "home",
   data() {
     return {
-      page: []
+      page:[],
+      first: window.location.search.substring(6)
     };
   },
+  computed:{
+    ...mapGetters([
+      'list',
+      'downLoadMore',
+      'routerChange'
+    ]),
+    getList:function(){
+      console.log(this.$route.query.type)
+      if(this.$route.query.type){
+        return this.list[this.$route.query.type]
+      }else{
+        return this.list[this.first]
+      }
+    }
+  },
+  
   methods: {
-    ...mapActions(["getListMessage"]),
-    ...mapMutations(["increament"]),
-    haha() {
+    ...mapActions(["getListMessage",'getNews']),
+    async haha(i = "__all__") {
       http(
         "get",
         "/list/?tag=" +
-          this.$route.query.type +
+          i +
           "&ac=wap&count=20&format=json_raw&as=A1851D51995F47E&cp=5D19DFC4970EAE1&min_behot_time=0&_signature=NF9FFwAAaUyecAWXUyqFmjRfRQ&i="
       ).then(res => {
         this.page = res;
         console.log(this.page);
       });
     },
-    getAllMsg(index) {
-      return Http.getListMsg(index);
-    }
+    
   },
-  mounted() {
+  created() {
     this.haha();
   },
+  mounted(){
+    this.getNews({
+      kind:this.first,
+      change:this.routerChange
+    })
+    console.log(this.$store,this)
+  },
   watch: {
-    $route: function(newitem, olditem) {
-      console.log(this.$store);
-      this.getListMessage();
-
-      this.haha();
+    $route: function() {
+      console.log(this.$route.query.type,this.routerChange,this.first)
+      this.getNews({
+        kind: this.$route.query.type,
+        change: this.routerChange
+      });
+      
+      console.log(this.$store)
+      this.first = window.location.search.substring(6);
     }
   },
   components: {
     TabBar
   },
-  beforeCreate() {
-    console.log(this.$store);
-  }
+ 
 };
 </script>
 

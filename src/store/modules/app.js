@@ -1,8 +1,10 @@
 import Vue from 'vue'
-import http from '../libs/http.js'
-
+import getters from './getters.js'
+import mutations from './mutations.js'
+import actions from './actions.js'
 const app = {
     state: {
+        routerChange:true,  //路由变化
         newList: [{
             text: "推荐",
             url: "/home/all",
@@ -122,28 +124,35 @@ const app = {
             type: "news_essay",
             id: 20
         }
-        ]
+        ],
+        list: {                //首页所有新闻栏目内容
+            __all__: [],
+            news_hot: [],
+            news_society: [],
+            news_entertainment: [],
+            news_tech: [],
+            news_car: [],
+            news_sports: [],
+            news_finance: [],
+            news_military: [],
+            news_world: [],
+            news_fashion: [],
+            news_game: [],
+            news_travel: [],
+            news_history: [],
+            news_discovery: [],
+            news_food: [],
+            news_baby: [],
+            news_regimen: [],
+            news_story: [],
+            news_essay: []
+        },
+        downLoadMore:false
     },
 
-    getters: {},
-    mutations: {
-        increament(state) {
-            console.log(state)
-        }
-    },
-    actions: {
-        async getListMessage(context, obj = 1) {
-            console.log("helo")
-            // await http(
-            //     "get",
-            //     "/list/?tag=" +
-            //     obj +
-            //     "&ac=wap&count=20&format=json_raw&as=A1851D51995F47E&cp=5D19DFC4970EAE1&min_behot_time=0&_signature=NF9FFwAAaUyecAWXUyqFmjRfRQ&i="
-            // ).then(res => {
-            //     return res;
-            // });
-        }
-    },
+    getters,
+    mutations,
+    actions,
 
 }
 export default app
