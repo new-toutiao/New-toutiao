@@ -75,10 +75,25 @@ module.exports = {
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
+  
   devServer: {
     historyApiFallback: true,
-    noInfo: true,
-    overlay: true
+    proxy: {
+      //当你访问这个路径的时候将你的本地域名替换成target中的域名
+      "/list": {
+        //域名
+        target: "http://m.toutiao.com",
+        changeOrigin: true
+      },
+      "/i": {
+        //域名
+        target: "http://m.toutiao.com",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/i': '/'
+        }
+      }
+    }
   },
   performance: {
     hints: false

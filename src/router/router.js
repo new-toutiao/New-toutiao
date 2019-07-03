@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-import home from "../views/home.vue"
+import list from '../views/list/list.vue'
+import home from "../views/Home/home.vue"
 
 Vue.use(Router);
 
@@ -17,6 +17,12 @@ const routes = [{
 {
     path: '',
     redirect: '/home/all?type=__all__'
+},
+{
+    path: '/list/:id',
+    component: list,
+    name: 'list',
+    props:true
 }
 ];
 

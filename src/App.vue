@@ -15,5 +15,7 @@ export default {
 <style lang="less">
 [v-cloak] {
   display: none;
-}
+}#app{
+        height: 100%;
+    }
 </style>
