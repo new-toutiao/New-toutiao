@@ -114,6 +114,7 @@ export default {
 </script>
 
 <style lang="scss">
+.article{
 .header {
   background: #fff;
   height: 50px;
@@ -278,4 +279,6 @@ export default {
     }
   }
 }
+}
+
 </style>

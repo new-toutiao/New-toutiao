@@ -1,5 +1,5 @@
 <template>
-  <div id="footer">
+  <!-- <div id="footer">
     <ul>
       <li
         v-for="(item,index) in tabBars"
@@ -11,7 +11,25 @@
         <span>{{item.title}}</span>
       </li>
     </ul>
-  </div>
+  </div>-->
+  <mt-tabbar v-model="selected" id="footer">
+    <mt-tab-item id="首页" >
+      <i slot="icon"  class="iconfont icon-zhuye"/>
+      首页
+    </mt-tab-item>
+    <mt-tab-item id="周边">
+       <i slot="icon"  class="iconfont icon-zhuye"/>
+      周边
+    </mt-tab-item>
+    <mt-tab-item id="看车">
+       <i slot="icon"  class="iconfont icon-zhuye"/>
+      看车
+    </mt-tab-item>
+    <mt-tab-item id="我的">
+      <i slot="icon"  class="iconfont icon-zhuye"/>
+      我的
+    </mt-tab-item>
+  </mt-tabbar>
 </template>
 
 <script>
@@ -19,31 +37,16 @@ export default {
   name: "TabBar",
   data() {
     return {
-      tabBars: [
-        {
-          icon: "icon-zhuye",
-          title: "首页"
-        },
-        {
-          icon: "icon-star",
-          title: "收藏"
-        },
-        {
-          icon: "icon-guanzhu",
-          title: "关注"
-        },
-        {
-          icon: "icon-Icon_wode",
-          title: "我的"
-        }
-      ],
-      activeIndex: 0
+      selected:"首页",
     };
   },
-  methods: {
-    handleToggle(index) {
-      this.activeIndex = index;
-      this.$emit("handle", index);
+  watch:{
+    selected:function(){
+      console.log(this.selected)
+      switch(this.selected){
+        case "首页":this.$router.push('/home/all?type=__all__');break;
+        case "我的":this.$router.push('/my');break;
+      }
     }
   }
 };
@@ -51,6 +54,7 @@ export default {
 
 <style lang="less" scoped>
 #footer {
+  z-index: 999;
   width: 100%;
   height: 1.4rem;
   position: fixed;
@@ -60,27 +64,10 @@ export default {
   background: #fff;
 }
 
-#footer > ul {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  
-  justify-content: space-between;
+
+#footer .iconfont {
+  font-size: 0.7rem;
+  padding-bottom: 0.1rem;
 }
-#footer > ul > li {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.4rem;
-}
-#footer > ul > li .iconfont{
-    font-size: .7rem;
-    padding-bottom: .1rem;
-}
-#footer > ul > .active {
-  color: #c33;
-}
+
 </style>

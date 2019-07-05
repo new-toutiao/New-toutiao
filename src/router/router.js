@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import home from "../views/Home/home.vue"
+import search from "../views/Search"
+import my from "../views/User"
 import { Indicator } from 'mint-ui';
 
 Vue.use(Router);
 let spinRoute = {
     show() {//加载中显示loading组件
-        Indicator.open({ text: '加载中...',spinnerType: 'fading-circle' });//开启loading组件，这里我用的mint-ui
+        Indicator.open({ text: '加载中...', spinnerType: 'fading-circle' });//开启loading组件，这里我用的mint-ui
     },
     resolve(resolve) {//加载完成隐藏loading组件
         return component => {
@@ -21,8 +23,24 @@ const routes = [{
     path: '/home/:type',
     component: home,
     name: "home",
-    meta:{
-        keepAlive:true
+    meta: {
+        keepAlive: true
+    }
+},
+{
+    path: '/search',
+    component: search,
+    name: "search",
+    meta: {
+        keepAlive: true
+    }
+},
+{
+    path: '/my',
+    component: my,
+    name: "my",
+    meta: {
+        keepAlive: true
     }
 },
 {
@@ -41,8 +59,8 @@ const routes = [{
     },
     name: 'article',
     props: true,
-    meta:{
-        keepAlive:false
+    meta: {
+        keepAlive: false
     }
 },
 {
@@ -53,12 +71,13 @@ const routes = [{
     },
     name: 'list',
     props: true,
-    meta:{
-        keepAlive:true
+    meta: {
+        keepAlive: true
     }
 }
 ];
 
+//返回之前页面的时候保持定位
 const scrollBehavior = (to, from, savedPosition) => {
     if (savedPosition) {
         return savedPosition

@@ -1,13 +1,23 @@
 <template>
   <div id="home">
     <div>
+        <Header></Header>
       <ul class="homeNav">
+       
         <li v-for="(item,index) in this.$store.state.app.newList" :key="index" class="navBarLi">
           <router-link :to="{path:item.url,query:{type:item.type}}">{{item.text}}</router-link>
         </li>
       </ul>
     </div>
-    <div class="newsContent">
+    <div class="newsContent page-loadmore-wrapper" ref="wrapper" :style="{ height: wrapperHeight + 'px' }">
+      <mt-loadmore
+          :bottom-method="loadBottom"
+          @bottom-status-change="handleBottomChange"
+          :bottom-all-loaded="allLoaded"
+          ref="loadmore"
+          bottomLoadingText="加载中"
+          :auto-fill="false"
+        >
       <router-link
         v-for="(item,index) in getList"
         :key="index"
@@ -27,14 +37,24 @@
           </div>
         </div>
       </router-link>
+      <div slot="bottom" class="mint-loadmore-bottom">
+            <span
+              v-show="bottomStatus == 'loading'"
+              :class="{ 'is-rotate': bottomStatus === 'drop' }"
+            >↑</span>
+            <span v-show="bottomStatus !== 'loading'">
+              <mt-spinner type="snake"></mt-spinner>
+            </span>
+          </div>
+        </mt-loadmore>
     </div>
-    <TabBar></TabBar>
   </div>
 </template>
 
 <script>
 import http from "./http.js";
-import TabBar from "../../components/bottom.vue";
+
+import Header from "../../components/header.vue";
 import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
@@ -42,13 +62,15 @@ export default {
   data() {
     return {
       page: [],
-      first: window.location.search.substring(6)
+      first: window.location.search.substring(6),
+      allLoaded: false,
+      bottomStatus: "",
+      wrapperHeight: 0
     };
   },
   computed: {
     ...mapGetters(["list", "downLoadMore", "routerChange"]),
     getList: function() {
-      console.log(this.$route.query.type);
       if (this.$route.query.type) {
         return this.list[this.$route.query.type];
       } else {
@@ -63,25 +85,34 @@ export default {
   methods: {
     ...mapActions(["getNewstwo", "getNews"]),
     handleScroll(){
-        let i = document.querySelector('#home').offsetHeight+window.scrollY;
-        let z = document.querySelector('#home').scrollHeight;
-        if (i>=z) {
-          this.getNewstwo({
-            kind: this.$route.query.type,
-            change: this.routerChange
-          });
-        }
+      this.getNewstwo({
+        kind: this.$route.query.type,
+        change: this.routerChange})
+    },
+    handleBottomChange(status) {
+      this.bottomStatus = status;
+    },
+
+    loadBottom() {
+      setTimeout(() => {
+        this.handleScroll();
+        this.$refs.loadmore.onBottomLoaded();
+      }, 100);
+      
+      
     }
+  
   },
   
   mounted() {
+     this.wrapperHeight =
+      document.documentElement.clientHeight -
+      this.$refs.wrapper.getBoundingClientRect().top;
     this.getNews({
       kind: this.first,
       change: this.routerChange
     });
     // console.log(this.$store,this)
-    document.addEventListener(
-      "scroll",this.handleScroll);
   },
   watch: {
     $route: function() {
@@ -89,11 +120,11 @@ export default {
         kind: this.$route.query.type,
         change: this.routerChange
       });
-      
+      this.first = window.location.search.substring(6);
     }
   },
   components: {
-    TabBar
+    Header
   }
 };
 </script>
@@ -110,8 +141,7 @@ export default {
   position: absolute;
   top: 0;
   bottom: 0;
-  padding-top: 2.2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.4rem;
 }
 .homeNav {
   width: 100%;
@@ -121,7 +151,7 @@ export default {
   position: fixed;
   left: 0;
   font-size: 0;
-  top: 1.2rem;
+  top: 1rem;
   background: #f4f5f6;
   font-family: "微软雅黑";
   white-space: nowrap;
@@ -142,12 +172,15 @@ export default {
     }
   }
 }
-
+*{touch-action: default;}
 .newsContent {
   height: 100%;
   width: 100%;
-  padding-bottom: 3rem;
+  padding-top:2.2rem;
+  padding-bottom: 1.5rem;
+  overflow-y:auto;
   .newsDetaile {
+    
     width: 94%;
     display: block;
     position: relative;
@@ -193,4 +226,15 @@ export default {
     }
   }
 }
+ .mint-loadmore-bottom {
+      span {
+        display: inline-block;
+        transition: 0.2s linear;
+        vertical-align: middle;
+      }
+      .mint-spinner {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
 </style>
