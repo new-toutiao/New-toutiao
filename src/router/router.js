@@ -1,14 +1,29 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import list from '../views/list/list.vue'
 import home from "../views/Home/home.vue"
+import { Indicator } from 'mint-ui';
 
 Vue.use(Router);
-
+let spinRoute = {
+    show() {//加载中显示loading组件
+        Indicator.open({ text: '加载中...',spinnerType: 'fading-circle' });//开启loading组件，这里我用的mint-ui
+    },
+    resolve(resolve) {//加载完成隐藏loading组件
+        return component => {
+            setTimeout(() => {
+                Indicator.close()//关闭loading组件
+                resolve(component);
+            }, 1000)
+        }
+    }
+}
 const routes = [{
     path: '/home/:type',
     component: home,
     name: "home",
+    meta:{
+        keepAlive:true
+    }
 },
 {
     path: '*',
@@ -19,10 +34,28 @@ const routes = [{
     redirect: '/home/all?type=__all__'
 },
 {
+    path: '/article/:id',
+    component: resolve => {
+        spinRoute.show();//加载时开启loading
+        require(["../views/Article/index.vue"], spinRoute.resolve(resolve))//路由懒加载
+    },
+    name: 'article',
+    props: true,
+    meta:{
+        keepAlive:false
+    }
+},
+{
     path: '/list/:id',
-    component: list,
+    component: resolve => {
+        spinRoute.show();//加载时开启loading
+        require(['../views/list/list.vue'], spinRoute.resolve(resolve))//路由懒加载
+    },
     name: 'list',
-    props:true
+    props: true,
+    meta:{
+        keepAlive:true
+    }
 }
 ];
 
@@ -36,6 +69,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 const router = new Router({
     mode: 'history',
+    base: process.env.BASE_URL,
     routes,
     scrollBehavior
 })

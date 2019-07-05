@@ -11,7 +11,7 @@
       <router-link
         v-for="(item,index) in getList"
         :key="index"
-        :to='{name:"list",params:{"id":item.tag_id}}'
+        :to='{name:"article",params:{"id":item.tag_id,datetime:item.datetime}}'
         class="newsDetaile"
       >
         <p class="title">{{item.title}}</p>
@@ -35,73 +35,66 @@
 <script>
 import http from "./http.js";
 import TabBar from "../../components/bottom.vue";
-import {mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions, mapGetters } from "vuex";
 
 export default {
   name: "home",
   data() {
     return {
-      page:[],
+      page: [],
       first: window.location.search.substring(6)
     };
   },
-  computed:{
-    ...mapGetters([
-      'list',
-      'downLoadMore',
-      'routerChange'
-    ]),
-    getList:function(){
-      console.log(this.$route.query.type)
-      if(this.$route.query.type){
-        return this.list[this.$route.query.type]
-      }else{
-        return this.list[this.first]
+  computed: {
+    ...mapGetters(["list", "downLoadMore", "routerChange"]),
+    getList: function() {
+      console.log(this.$route.query.type);
+      if (this.$route.query.type) {
+        return this.list[this.$route.query.type];
+      } else {
+        return this.list[this.first];
       }
     }
   },
-  
+  beforeRouteLeave(to, from, next) {
+    document.removeEventListener('scroll',this.handleScroll)
+    next();
+  },
   methods: {
-    ...mapActions(["getListMessage",'getNews']),
-    async haha(i = "__all__") {
-      http(
-        "get",
-        "/list/?tag=" +
-          i +
-          "&ac=wap&count=20&format=json_raw&as=A1851D51995F47E&cp=5D19DFC4970EAE1&min_behot_time=0&_signature=NF9FFwAAaUyecAWXUyqFmjRfRQ&i="
-      ).then(res => {
-        this.page = res;
-        console.log(this.page);
-      });
-    },
-    
+    ...mapActions(["getNewstwo", "getNews"]),
+    handleScroll(){
+        let i = document.querySelector('#home').offsetHeight+window.scrollY;
+        let z = document.querySelector('#home').scrollHeight;
+        if (i>=z) {
+          this.getNewstwo({
+            kind: this.$route.query.type,
+            change: this.routerChange
+          });
+        }
+    }
   },
-  created() {
-    this.haha();
-  },
-  mounted(){
+  
+  mounted() {
     this.getNews({
-      kind:this.first,
-      change:this.routerChange
-    })
-    console.log(this.$store,this)
+      kind: this.first,
+      change: this.routerChange
+    });
+    // console.log(this.$store,this)
+    document.addEventListener(
+      "scroll",this.handleScroll);
   },
   watch: {
     $route: function() {
-      console.log(this.$route.query.type,this.routerChange,this.first)
       this.getNews({
         kind: this.$route.query.type,
         change: this.routerChange
       });
       
-      console.log(this.$store)
-      this.first = window.location.search.substring(6);
     }
   },
   components: {
     TabBar
-  },
- 
+  }
 };
 </script>
 
@@ -117,7 +110,7 @@ export default {
   position: absolute;
   top: 0;
   bottom: 0;
-  padding-top: 2.3rem;
+  padding-top: 2.2rem;
   padding-bottom: 1rem;
 }
 .homeNav {
@@ -151,8 +144,9 @@ export default {
 }
 
 .newsContent {
+  height: 100%;
   width: 100%;
-  padding-bottom: 2rem;
+  padding-bottom: 3rem;
   .newsDetaile {
     width: 94%;
     display: block;

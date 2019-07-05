@@ -4,7 +4,7 @@ import mutations from './mutations.js'
 import actions from './actions.js'
 const app = {
     state: {
-        routerChange:true,  //路由变化
+        routerChange: true,  //路由变化
         newList: [{
             text: "推荐",
             url: "/home/all",
@@ -147,7 +147,9 @@ const app = {
             news_story: [],
             news_essay: []
         },
-        downLoadMore:false
+        downLoadMore: false,
+        newsArticle:{},
+        getArticleMsg:false
     },
 
     getters,

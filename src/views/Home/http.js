@@ -15,11 +15,11 @@ http.interceptors.request.use((config) => {
     if (config.method == "get") {
 
         //将data中的数据解构给params
-        config.params = { ...config.data }
+        //config.params = { ...config.data }
 
         //当post请求的时候设置数据的类型
     } else if (config.method == "post") {
-        config.headers = { "content-type": "application/x-www-form-urlencoded" }
+        config.headers['content-type'] = "application/x-www-form-urlencoded";
     }
 
 
