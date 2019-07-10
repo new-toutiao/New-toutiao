@@ -5,10 +5,11 @@
       <div class="pic_k">
         <img src="@/logo.png" alt srcset />
       </div>
-      <div class="kuang">
+
+      <router-link class="kuang" to="search_x">
         <span>搜你想搜的</span>
         <i class="iconfont icon-fangdajing"></i>
-      </div>
+      </router-link>
     </div>
   </div>
 </template>
@@ -21,7 +22,7 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .kong {
   height: 53vw;
 }

@@ -4,7 +4,9 @@ import router from './router/router.js'
 import store from './store/index.js'
 import VueLazyLoad from 'vue-lazyload'
 import './components/index.js'
+import "./mock/index.js"
 
+Vue.prototype.bus = new Vue()
 
 Vue.use(VueLazyLoad, {
   error: require('./static/imgerror.jpg'),

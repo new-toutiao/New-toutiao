@@ -3,6 +3,8 @@ import Router from 'vue-router'
 import home from "../views/Home/home.vue"
 import search from "../views/Search"
 import my from "../views/User"
+import search_x from "../views/search_x"
+import search_detail from "../views/search_detail"
 import login from '.././components/login.vue'
 import { Indicator } from 'mint-ui';
 
@@ -40,6 +42,16 @@ const routes = [{
     }
 }
     ,
+
+{
+    path: '/my',
+    component: my,
+    name: "my",
+    meta: {
+        keepAlive: false
+    }
+},
+//搜索
 {
     path: '/search',
     component: search,
@@ -49,11 +61,23 @@ const routes = [{
     }
 },
 {
-    path: '/my',
-    component: my,
-    name: "my",
+    path: '/search_x',
+    component: search_x,
+    name: "search_x",
+    // meta: {
+    //     // title: "搜索",
+    //     flag: false
+    // }
     meta: {
-        keepAlive: false
+        keepAlive: true
+    }
+},
+//搜索详情页
+{
+    path: '/search_detail',
+    component: search_detail,
+    meta: {
+        keepAlive: true
     }
 },
 {
@@ -64,6 +88,9 @@ const routes = [{
         keepAlive: false
     }
 },
+
+
+
 {
     path: '*',
     redirect: '/home/all?type=__all__'
