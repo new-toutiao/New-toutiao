@@ -3,7 +3,7 @@
     <div class="kong"></div>
     <div class="cont">
       <div class="pic_k">
-        <img src="../../static/logo.png" alt srcset />
+        <img src="@/logo.png" alt srcset />
       </div>
       <div class="kuang">
         <span>搜你想搜的</span>

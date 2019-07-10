@@ -6,7 +6,9 @@ export default {
         for (var item in payload.data) {
             state.list[payload.kind].push(payload.data[item])
         }
-        state.downLoadMore = true;
+        setTimeout(() => {
+            state.downLoadMore = true;
+        }, 1000);
     },
     GETARTICLEMSG(state,lod){
         state.getArticleMsg = lod
@@ -17,5 +19,8 @@ export default {
     },
     clearArticle(state){
         state.newsArticle = {}
+    },
+    changeLoading(state,load){
+        state.downLoadMore = load
     }
 }

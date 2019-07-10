@@ -24,6 +24,7 @@ export default {
                     data: res.data,
                     kind: site.kind
                 });
+               
             });
         }
     },
@@ -44,6 +45,9 @@ export default {
     },
     clearArticles({commit}){
         commit("clearArticle")
+    },
+    changeLoading({commit},atc){
+        commit('changeLoading',atc)
     }
 
 }

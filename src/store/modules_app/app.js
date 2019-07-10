@@ -149,7 +149,7 @@ const app = {
         },
         downLoadMore: false,
         newsArticle:{},
-        getArticleMsg:false
+        getArticleMsg:false,
     },
 
     getters,

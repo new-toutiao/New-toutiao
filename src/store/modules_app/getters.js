@@ -3,5 +3,5 @@ export default {
     downLoadMore: state => state.downLoadMore,
     routerChange: state => state.routerChange,
     getArticleMsg: state => state.getArticleMsg,
-    newsArticle: state => state.newsArticle
+    newsArticle: state => state.newsArticle,
 }
