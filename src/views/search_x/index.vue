@@ -1,7 +1,7 @@
 <template>
 <div>
      <div class="kuang">
-        <i class="iconfont icon-sousuo pic"></i>
+        <i class="iconfont icon-fangdajing pic"></i>
         <input type="text" placeholder="请输入搜索内容" v-model="userinfo">
         <div class="right"> <i class="shu"></i> <span @click="call()">取消</span></div>
     </div>
@@ -20,7 +20,7 @@
     <div class="mask" v-if="flag">
             <ul>
                 <li v-for="(items,index) in list_cont" :key="index">
-                    <i class="iconfont icon-sousuo"></i>
+                    <i class="iconfont icon-fangdajing"></i>
                     <span>{{items.keyword}}</span>
                     <img src="//s3a.pstatp.com/toutiao/resource/tt_search_m/images/search-item-tip@3x.70e201f2.png" alt="">
                 </li>
@@ -72,7 +72,7 @@ methods:{
     watch:{
           userinfo(val){
               if(val.length>0){
-                  this.flag=!this.flag
+                  this.flag=true;
                    axios({
                     method:"get",
                      url:"/i/2/article/search_sug/",
@@ -82,10 +82,12 @@ methods:{
                 }).then(data=>{
           
           var list_list=data.data.data
-            console.log(data.data.data);
-            console.log(data.data.data[0].keyword);
+            // console.log(data.data.data);
+            // console.log(data.data.data[0].keyword);
             this.list_cont =list_list ;
         })
+              }else{
+                 this.flag=false; 
               }
 
           }
@@ -132,7 +134,7 @@ methods:{
     }
     
     .shu {
-            width: 0.01rem;
+            width: 0.02rem;
     height: 0.45rem;
     display: block;
     background: #707070;
