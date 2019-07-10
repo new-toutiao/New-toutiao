@@ -1,29 +1,30 @@
 <template>
   <div id="app">
-    <keep-alive>
-      <Header></Header>
-    </keep-alive>
-    <keep-alive>
-      <router-view></router-view>
-    </keep-alive>
-    <keep-alive>
-      <Title v-if="xianshi" />
-    </keep-alive>
-    <keep-alive>
-      <TableList></TableList>
-    </keep-alive>
-    <keep-alive>
-      <Footer></Footer>
-    </keep-alive>
-
-
-    
-    <Login :class="{'login-active': getLogin}" @close="closeLogin()"></Login>
-    <keep-alive>
-      <router-view v-cloak v-if="$route.meta.keepAlive"></router-view>
-    </keep-alive>
-    <router-view v-cloak v-if="!$route.meta.keepAlive" :key="$route.fullPath"></router-view>
-    <TabBar v-if="$route.name !== 'search'" />
+    <div v-if="$route.meta.car_info">
+      <keep-alive>
+        <Header></Header>
+      </keep-alive>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+      <keep-alive>
+        <Title v-if="xianshi" />
+      </keep-alive>
+      <keep-alive>
+        <TableList></TableList>
+      </keep-alive>
+      <keep-alive>
+        <Footer></Footer>
+      </keep-alive>
+    </div>
+    <div v-else>
+      <Login :class="{'login-active': getLogin}" @close="closeLogin()"></Login>
+      <keep-alive>
+        <router-view v-cloak v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
+      <router-view v-cloak v-if="!$route.meta.keepAlive" :key="$route.fullPath"></router-view>
+      <TabBar v-if="$route.name !== 'search'" />
+    </div>
   </div>
 </template>
 
@@ -63,11 +64,11 @@ export default {
     this.$observer.$on("carNav", msgcarNav => {
       this.xianshi = msgcarNav;
     });
-// export default {
-//   name: "app",
-//   components: {
+    // export default {
+    //   name: "app",
+    //   components: {
 
-//   },
+    //   },
   },
   computed: {
     ...mapGetters(["getLogin"])
@@ -77,19 +78,23 @@ export default {
     closeLogin() {
       this.change_Login(false);
     }
+  },
+  mounted() {
+    console.log(this.$route);
   }
 };
 </script>
 
 <style lang="less">
-body,html {
+body,
+html {
   height: 100%;
 }
 #app {
   height: 100%;
-[v-cloak] {
-  display: none;
-}
+  [v-cloak] {
+    display: none;
+  }
 }
 #app {
   height: 100%;

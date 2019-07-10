@@ -46,32 +46,50 @@ const routes = [
   //首页
   {
     path: '/car',
-    component: resolve => require(['../views/Car/shouye/index.vue'], resolve)
+    component: resolve => require(['../views/Car/shouye/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //
   {
     path: '/car/carNav',
-    component: resolve => require(['../views/Car/shouyeNav/index.vue'], resolve)
+    component: resolve => require(['../views/Car/shouyeNav/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //选车
   {
     path: '/car/CarSelection',
-    component: resolve => require(['../views/Car/CarSelection/index.vue'], resolve)
+    component: resolve => require(['../views/Car/CarSelection/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //选车详情
   {
     path: '/car/CarSelection/CarNav',
-    component: resolve => require(['../views/Car/CarSelectionNav/index.vue'], resolve)
+    component: resolve => require(['../views/Car/CarSelectionNav/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //车友圈
   {
     path: '/car/Myring',
-    component: resolve => require(['../views/Car/Myring/index.vue'], resolve)
+    component: resolve => require(['../views/Car/Myring/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //车有圈详情
   {
     path: '/car/Myring/MyringNav',
-    component: resolve => require(['../views/Car/MyringNav/index.vue'], resolve)
+    component: resolve => require(['../views/Car/MyringNav/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //小视频
   // {
@@ -81,21 +99,33 @@ const routes = [
   //排行榜
   {
     path: '/car/Rankinglist',
-    component: resolve => require(['../views/Car/Rankinglist/index.vue'], resolve)
+    component: resolve => require(['../views/Car/Rankinglist/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //服务
   {
     path: '/car/Addedservice',
-    component: resolve => require(['../views/Car/Addedservice/index.vue'], resolve)
+    component: resolve => require(['../views/Car/Addedservice/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   {
     path: '/car/Addedservice/AddedserviceDetail',
-    component: resolve => require(['../views/Car/AddedserviceDetail/index.vue'], resolve)
+    component: resolve => require(['../views/Car/AddedserviceDetail/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //文章
   {
     path: '/car/Essay',
-    component: resolve => require(['../views/Car/Essay/index.vue'], resolve)
+    component: resolve => require(['../views/Car/Essay/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //视频
   // {
@@ -105,16 +135,18 @@ const routes = [
   //搜索
   {
     path: '/car/grabble',
-    component: resolve => require(['../views/Car/grabble/index.vue'], resolve)
+    component: resolve => require(['../views/Car/grabble/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
   //文章详情
   {
     path: '/car/grabble/atlas',
-    component: resolve => require(['../views/Car/grabbleAtlas/index.vue'], resolve)
-  },
-  {
-    path: '',
-    redirect: '/car'
+    component: resolve => require(['../views/Car/grabbleAtlas/index.vue'], resolve),
+    meta:{
+      car_info:true
+    }
   },
 
   //----------------

@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import App from './App.vue';
 import router from './router/router.js';
-import './views/Car/icon/iconfont.css';
+// import './views/Car/icon/iconfont.css';
 import './views/Car/commot/moke/index.js';
 import store from './store/index.js';
 import VueLazyLoad from 'vue-lazyload';

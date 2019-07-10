@@ -38,6 +38,7 @@ export default {
       switch(this.selected){
         case "首页":this.$router.push('/home/all?type=__all__');break;
         case "我的":this.$router.push('/my');break;
+        case "看车":this.$router.push('/car');break;
         case "周边":this.$router.push('/hypermarket');break;
       }
     },
