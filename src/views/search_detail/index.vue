@@ -86,7 +86,7 @@ export default {
         display: block
     }
     .shu {
-    width: 0.01rem;
+    width: 0.02rem;
     height: 0.45rem;
     display: block;
     background: #707070;
