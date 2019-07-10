@@ -33,9 +33,14 @@ export default {
     },
     created(){
         this.bus.$on("updata",getval=>{
-            console.log(getval)
+            // console.log(getval)
             this.bandval=getval
-        })
+        }),
+          this.bus.$on("updata",getvalue=>{
+            console.log(getvalue)
+            this.bandval=getvalue
+        }),
+
         axios({
          method:"get",
          url:"/search/searchDetail"

@@ -19,11 +19,11 @@
     </div>
     <div class="mask" v-if="flag">
             <ul>
-                <li v-for="(items,index) in list_cont" :key="index">
+                <router-link v-for="(items,index) in list_cont" :key="index" to="/search_detail" tag="li" @click.native="changesend(index)">
                     <i class="iconfont icon-fangdajing"></i>
                     <span>{{items.keyword}}</span>
                     <img src="//s3a.pstatp.com/toutiao/resource/tt_search_m/images/search-item-tip@3x.70e201f2.png" alt="">
-                </li>
+                </router-link>
                 
             </ul>
       </div>
@@ -48,11 +48,13 @@ methods:{
      changeVal(index){
         
            this.userinfo=this.sugList[index].word
-             console.log(this.userinfo)
-             this.bus.$emit('updata',this.userinfo)
-             
-
-   
+            //  console.log(this.userinfo)
+             this.bus.$emit('updata',this.userinfo)   
+        },
+        changesend(index){
+              this.userinfo=this.list_cont[index].keyword
+             console.log(this.list_cont[index].keyword)
+             this.bus.$emit('updata',this.userinfo)   
         }
 
 },
