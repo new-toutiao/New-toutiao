@@ -1,22 +1,23 @@
 /* 清除内外边距 */
 
 body, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
-    /* structural elements 结构元素 */
+        /* structural elements 结构元素 */
 
-    dl, dt, dd, ul, ol, li,
-    /* list elements 列表元素 */
+        dl, dt, dd, ul, ol, li,
+        /* list elements 列表元素 */
 
-    pre,
-    /* text formatting elements 文本格式元素 */
+        pre,
+        /* text formatting elements 文本格式元素 */
 
-    fieldset, lengend, button, input, textarea,
-    /* form elements 表单元素 */
+        fieldset, lengend, button, input, textarea,
+        /* form elements 表单元素 */
 
-    th, td {
+        th, td {
   /* table elements 表格元素 */
   margin: 0;
   padding: 0;
 }
+
 /* 设置默认字体 */
 
 body,
@@ -27,6 +28,7 @@ textarea {
   /* for ie */
   /*font: 12px/1 Tahoma, Helvetica, Arial, "宋体", sans-serif;*/
   font: 12px/1 Tahoma, Helvetica, Arial, '\5b8b\4f53', sans-serif;
+  font-family: 'STHeiti', 'Microsoft YaHei', 'Helvetica', 'Arial', sans-serif;
   /* 用 ascii 字符表示，使得在任何编码下都无问题 */
 }
 
@@ -56,6 +58,7 @@ em,
 var {
   font-style: normal;
 }
+
 /* 将斜体扶正 */
 
 code,
@@ -65,24 +68,29 @@ samp,
 tt {
   font-family: 'Courier New', Courier, monospace;
 }
+
 /* 统一等宽字体 */
 
 small {
   font-size: 12px;
 }
+
 /* 小于 12px 的中文很难阅读，让 small 正常化 */
+
 /* 重置列表元素 */
 
 ul,
 ol {
   list-style: none;
 }
+
 /* 重置文本格式元素 */
 
 a {
   text-decoration: none;
   color: #000;
 }
+
 /*a:hover { text-decoration: underline; }*/
 
 abbr[title],
@@ -96,18 +104,22 @@ q:before,
 q:after {
   content: '';
 }
+
 /* 重置表单元素 */
 
 legend {
   color: #000;
 }
+
 /* for ie6 */
 
 fieldset,
 img {
   border: none;
 }
+
 /* img 搭车：让链接里的 img 无边框 */
+
 /* 注：optgroup 无法扶正 */
 
 button,
@@ -117,23 +129,27 @@ textarea {
   font-size: 100%;
   /* 使得表单元素在 ie 下能继承字体大小 */
 }
+
 /* 重置表格元素 */
 
 table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
 /* 重置 hr */
 
 hr {
   border: none;
   height: 1px;
 }
+
 /* 让非ie浏览器默认也显示垂直滚动条，防止因滚动条引起的闪烁 */
 
 html {
   overflow-y: scroll;
 }
+
 /*  浮动  */
 
 .fl {
@@ -143,6 +159,7 @@ html {
 .fr {
   float: right;
 }
+
 /*  清除浮动  */
 
 .clearfix:after {

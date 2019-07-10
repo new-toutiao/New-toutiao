@@ -47,35 +47,28 @@ module.exports = {
         options: {
           name: '[name].[ext]?[hash]'
         }
-      },
-      {
-        test: /\.(eot|woff|ttf|svg)$/,
-        use: {
-          loader: 'url-loader'
-        }
       }
     ]
   },
   resolve: {
     alias: {
-      vue$: 'vue/dist/vue.esm.js'
+      vue$: 'vue/dist/vue.esm.js',
+      '@': path.resolve(__dirname, './src/static'),
+      '#': path.resolve(__dirname, './src/assets'),
+      api: path.resolve(__dirname, './api')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
-  devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
-  },
-  performance: {
-    hints: false
-  },
-  devtool: '#eval-source-map',
 
-  //跨域的配置    http://m.maoyan.com/ajax/movieOnInfoList?token=
   devServer: {
+    historyApiFallback: true, //用于如果找不到界面就返回默认首页
     proxy: {
       //当你访问这个路径的时候将你的本地域名替换成target中的域名
+      '/list': {
+        //域名
+        target: 'http://m.toutiao.com',
+        changeOrigin: true
+      },
       '/abc': {
         //域名
         target: 'https://m.dcdapp.com/',
@@ -83,9 +76,30 @@ module.exports = {
         pathRewrite: {
           '^/abc': ''
         }
+      },
+
+      '/i': {
+        //域名
+        target: 'http://m.toutiao.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/i': '/'
+        }
+      },
+      '/market': {
+        //域名
+        target: 'https://shopapi.smartisan.com/',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/market': '/'
+        }
       }
     }
-  }
+  },
+  performance: {
+    hints: false
+  },
+  devtool: '#eval-source-map'
 };
 
 if (process.env.NODE_ENV === 'production') {
