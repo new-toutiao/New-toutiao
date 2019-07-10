@@ -105,6 +105,10 @@ export default {
     handLBack() {
       this.$router.push("/car");
       this.reveal = false;
+      this.$observer.$emit('tableList',{
+        index:0,
+        xianshi:true
+      })
     }
   }
 };

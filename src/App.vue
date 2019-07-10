@@ -64,6 +64,9 @@ export default {
     this.$observer.$on("carNav", msgcarNav => {
       this.xianshi = msgcarNav;
     });
+    this.$observer.$on("tableList", msgtable => {
+      this.xianshi = msgtable.xianshi;
+    });
     // export default {
     //   name: "app",
     //   components: {

@@ -68,6 +68,9 @@ export default {
     this.$observer.$on("span", msg => {
       this.spanIndex = msg;
     });
+    this.$observer.$on("tableList", msgTable => {
+      this.spanIndex = msgTable.index;
+    });
   }
 };
 </script>
