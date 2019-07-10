@@ -2,6 +2,7 @@ var path = require('path')
 var webpack = require('webpack')
 
 module.exports = {
+  
   entry: './src/main.js',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -71,14 +72,40 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'vue$': 'vue/dist/vue.esm.js'
+      'vue$': 'vue/dist/vue.esm.js',
+      '@':path.resolve(__dirname,'./src/static'),
+      '#':path.resolve(__dirname,'./src/assets'),
+      'api':path.resolve(__dirname,'./api')
     },
     extensions: ['*', '.js', '.vue', '.json']
   },
+
   devServer: {
-    historyApiFallback: true,
-    noInfo: true,
-    overlay: true
+    historyApiFallback: true,  //用于如果找不到界面就返回默认首页
+    proxy: {
+      //当你访问这个路径的时候将你的本地域名替换成target中的域名
+      "/list": {
+        //域名
+        target: "http://m.toutiao.com",
+        changeOrigin: true
+      },
+      "/i": {
+        //域名
+        target: "http://m.toutiao.com",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/i': '/'
+        }
+      },
+      "/market": {
+        //域名
+        target: "https://shopapi.smartisan.com/",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/market': '/'
+        }
+      }
+    }
   },
   performance: {
     hints: false
