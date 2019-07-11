@@ -34,7 +34,6 @@ export default {
   },
   watch:{
     selected:function(){
-      console.log(this.selected)
       switch(this.selected){
         case "首页":this.$router.push('/home/all?type=__all__');break;
         case "我的":this.$router.push('/my');break;
