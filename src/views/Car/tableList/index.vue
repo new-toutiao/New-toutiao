@@ -105,10 +105,10 @@ export default {
     handLBack() {
       this.$router.push("/car");
       this.reveal = false;
-      this.$observer.$emit('tableList',{
-        index:0,
-        xianshi:true
-      })
+      this.$observer.$emit("tableList", {
+        index: 0,
+        xianshi: true
+      });
     }
   }
 };
@@ -124,7 +124,7 @@ export default {
   width: 9rem;
   min-height: 3rem;
   background: #fff;
-  z-index: 9;
+  z-index: 999;
 
   .back_sy {
     width: 100%;
@@ -168,7 +168,7 @@ export default {
     position: absolute;
     left: 0;
     top: 0;
-    // z-index: 999;
+    // z-index: 989;
   }
 }
 </style>
