@@ -34,11 +34,11 @@ export default {
           group_id: that.ground_id
         }
       }).then(data => {
-        console.log(data);
+        // console.log(data);
         that.nav = data.data.data.gallery_info.image_list;
         that.title = data.data.data.title;
         that.source = data.data.data.source;
-        console.log(that.nav);
+        // console.log(that.nav);
       });
     });
   }

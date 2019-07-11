@@ -100,9 +100,9 @@ export default {
       for (var n = 0; n < this.carMsg[0].info.series.length; n++) {
         this.titleNav.push(this.carMsg[0].info.series[n]);
       }
-      console.log(this.titleNav);
-      console.log(this.title);
-      console.log(this.carMsg);
+      // console.log(this.titleNav);
+      // console.log(this.title);
+      // console.log(this.carMsg);
     });
   }
 };

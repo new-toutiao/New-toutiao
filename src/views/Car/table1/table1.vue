@@ -71,6 +71,9 @@ export default {
     this.$observer.$on("tableList", msgTable => {
       this.spanIndex = msgTable.index;
     });
+    if (this.spanIndex == 0) {
+      this.$router.push("/car");
+    }
   }
 };
 </script>

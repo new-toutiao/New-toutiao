@@ -22,7 +22,7 @@ export default {
       url: "/goods/getgoods"
     }).then(data => {
       this.name = data.data.data;
-      console.log(this.name);
+      // console.log(this.name);
     });
   }
 };
