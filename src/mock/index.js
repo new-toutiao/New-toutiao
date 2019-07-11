@@ -16,7 +16,6 @@ const data = Mock.mock({
 // console.log(data)
 // https://m.toutiao.com/
 Mock.mock(/\/search\/searchDetail/, 'get', options => {
-    console.log(options);
     return data;
 
 })

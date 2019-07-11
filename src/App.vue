@@ -81,9 +81,6 @@ export default {
     closeLogin() {
       this.change_Login(false);
     }
-  },
-  mounted() {
-    console.log(this.$route);
   }
 };
 </script>

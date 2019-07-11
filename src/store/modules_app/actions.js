@@ -34,7 +34,6 @@ export default {
                 "get",
                 '/i/i' + atc.id +"/info/?_signature=cLU.dxASLavamn.3F398wnC1P2&i=6709624594946327043"
             ).then(res => {
-                console.log(res.data)
                 commit("get_NewArticle",res.data)
                 
             })

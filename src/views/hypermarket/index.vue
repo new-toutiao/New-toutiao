@@ -73,7 +73,6 @@ export default {
   name: "hypermarket",
   async created() {
     let data = await getMarcketLists();
-    console.log(data.data.list);
     this.marklist = data.data.list;
     this.items = data.data.list[0];
   },

@@ -70,13 +70,11 @@ export const Local = {
     change(key, id) {
         let _json = [];
         let json = JSON.parse(localStorage.getItem(key));
-        console.log(json[0])
         for (let i = 0; i < json.length; i++) {
             if (json[i].id != id) {
                 _json.push(json[i])
             }
         }
-        console.log(_json)
         localStorage.setItem(key, JSON.stringify(_json));
     },
     subnum(key, id) {

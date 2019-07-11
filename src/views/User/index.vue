@@ -90,7 +90,6 @@ export default {
   methods: {
     ...mapActions(["change_Login", "change_Load", "esc"]),
     goLoading() {
-      console.log(this.getUser);
       if (this.getUser.username == "") {
         this.change_Load(false);
         this.change_Login(true);

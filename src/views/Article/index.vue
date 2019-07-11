@@ -1,57 +1,60 @@
 <template>
-  <div class="article">
-    <div class="header">
-      <div @click="comback()" class="iconfont icon-fanhuizuojiantouxiangzuoshangyibuxianxing"></div>
-    </div>
-    <div class="title">
-      <h1>{{msg.title}}</h1>
-      <div class="article_auther">
-        <div class="auther_left">
-          <div class="auther_head">
+  <div>
+    <Loading v-if="loadingFlag" />
+    <div class="article" v-if="!loadingFlag">
+      <div class="header">
+        <div @click="comback()" class="iconfont icon-fanhuizuojiantouxiangzuoshangyibuxianxing"></div>
+      </div>
+      <div class="title">
+        <h1>{{msg.title}}</h1>
+        <div class="article_auther">
+          <div class="auther_left">
+            <div class="auther_head">
+              <img
+                src="http://b-ssl.duitang.com/uploads/item/201510/08/20151008192345_uPC5U.jpeg"
+                alt
+              />
+            </div>
+            <div>
+              <p>
+                {{msg.detail_source}}
+                <span class="vip"></span>
+              </p>
+              <span class="publish_time">发布时间</span>
+              :{{datetime}}
+            </div>
+          </div>
+          <div class="auther_right">{{msg.comment_count}}评论</div>
+        </div>
+      </div>
+      <div class="go-Top" @click="goTop()">
+        <i class="iconfont icon-tubiao_up"></i>
+      </div>
+      <div v-html="msg.content" class="article_content"></div>
+      <div class="recommendation-list">
+        <h2>热门推荐</h2>
+        <router-link
+          v-for="(item,index) in active"
+          :key="index"
+          :to="{name:'article',params:{'id':item.id,datetime:createTime(item.create_time)}}"
+          class="active_list"
+          tag="div"
+        >
+          <p>{{item.title}}</p>
+          <div class="active_img">
             <img
-              src="http://b-ssl.duitang.com/uploads/item/201510/08/20151008192345_uPC5U.jpeg"
+              v-for="(i_img,index) in item.image_list"
+              :key="index"
+              v-if="index<3"
+              :src="i_img.url"
               alt
             />
           </div>
-          <div>
-            <p>
-              {{msg.detail_source}}
-              <span class="vip"></span>
-            </p>
-            <span class="publish_time">发布时间</span>
-            :{{datetime}}
+          <div class="info">
+            <span>{{item.author.name}}</span>
           </div>
-        </div>
-        <div class="auther_right">{{msg.comment_count}}评论</div>
+        </router-link>
       </div>
-    </div>
-    <div class="go-Top" @click="goTop()">
-      <i class="iconfont icon-tubiao_up"></i>
-    </div>
-    <div v-html="msg.content" class="article_content"></div>
-    <div class="recommendation-list">
-      <h2>热门推荐</h2>
-      <router-link
-        v-for="(item,index) in active"
-        :key="index"
-        :to="{name:'article',params:{'id':item.id,datetime:createTime(item.create_time)}}"
-        class="active_list"
-        tag="div"
-      >
-        <p>{{item.title}}</p>
-        <div class="active_img">
-          <img
-            v-for="(i_img,index) in item.image_list"
-            :key="index"
-            v-if="index<3"
-            :src="i_img.url"
-            alt
-          />
-        </div>
-        <div class="info">
-          <span>{{item.author.name}}</span>
-        </div>
-      </router-link>
     </div>
   </div>
 </template>
@@ -66,14 +69,14 @@ export default {
     return {
       msg: {},
       active: {},
-      timer: null
+      timer: null,
+      loadingFlag: true
     };
   },
   computed: {
     ...mapGetters(["getArticleMsg", "newsArticle"]),
     pushArticle: function() {
       if (this.newsArticle) {
-        console.log(this.active);
         return this.newsArticle;
       }
     }
@@ -86,7 +89,11 @@ export default {
     this.msg = data.data;
     let act = await Article.getActive(this.id);
     this.active = Object.assign({}, act.data["14798012085000246"]);
-    console.log(data.data.title);
+    if(data&&act){
+      this.loadingFlag = false;
+    }else{
+      this.loadingFlag = true;
+    }
   },
 
   beforeDestroy() {
